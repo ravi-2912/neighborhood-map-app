@@ -1,37 +1,330 @@
-.App {
-    text-align: center;
+/* Primary Styles */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
+body {
+    font-family: sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
 }
 
-.App-header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
+h1 {
+    font-size: 1.4em;
 }
 
-.App-title {
-    font-size: 1.5em;
+em {
+    font-style: normal;
 }
 
-.App-intro {
-    font-size: large;
+a {
+    text-decoration: none;
+    color: hsla(38, 100%, 85%, 0.7);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+a:hover,
+a:focus {
+    color: moccasin;
 }
+
+header {
+    z-index: 2;
+    background: #192b3c;
+    height: 4em;
+    width: 100vw;
+    padding-left: 5em;
+    position: fixed;
+    left: 0em;
+}
+
+header h1 {
+    color: moccasin;
+}
+
+/* Map */
 
 #map {
+    height: calc(100vh - 4em);
     width: 100vw;
-    height: 100vh;
+    margin-top: 4em;
 }
+
+/* Layout */
+
+.s-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.s-layout__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+/* Sidebar */
+
+.s-sidebar__trigger {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4em;
+    height: 4em;
+    background: #192b3c;
+    color: hsla(38, 100%, 85%, 0.7);
+}
+
+.s-sidebar__trigger>i {
+    display: inline-block;
+    margin: 1.5em 0 0 1.5em;
+    color: inherit;
+}
+
+.s-sidebar__nav {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: -15em;
+    overflow: hidden;
+    transition: all 0.3s ease-in;
+    width: 15em;
+    height: 100%;
+    background: #243e56;
+    color: hsla(38, 100%, 85%, 0.7);
+}
+
+.s-sidebar__nav:hover,
+.s-sidebar__nav:focus,
+.s-sidebar__trigger:focus+.s-sidebar__nav,
+.s-sidebar__trigger:hover+.s-sidebar__nav {
+    left: 0;
+}
+
+.s-sidebar__trigger:focus,
+.s-sidebar__trigger:hover {
+    color: moccasin;
+}
+
+.s-sidebar__nav ul {
+    position: absolute;
+    top: 4em;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 15em;
+}
+
+.s-sidebar__nav ul li {
+    width: 100%;
+}
+
+.s-sidebar__nav-link {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 4em;
+}
+
+.s-sidebar__nav-link em {
+    position: absolute;
+    top: 50%;
+    left: 4em;
+    transform: translateY(-50%);
+}
+
+.search {
+    position: relative;
+    color: hsla(38, 100%, 85%, 0.7);
+    padding: 1em;
+}
+
+.search input {
+    width: 100%;
+    height: 100%;
+    background: hsl(209, 41%, 20%);
+    border: 1px solid hsla(38, 100%, 85%, 0.5);
+    border-radius: 15px;
+    color: moccasin;
+    font-size: inherit;
+    padding-left: 2px 1em;
+    text-indent: 3em;
+    outline: none;
+}
+
+.search input:focus,
+.search input:focus {
+    border: 1px solid moccasin;
+}
+
+.search .fa-search {
+    font-size: inherit;
+    width: 4em;
+    height: 4em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+}
+
+.search .fa-search::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.s-sidebar__nav-link:hover,
+.s-sidebar__nav-link:focus {
+    color: moccasin;
+}
+
+.s-sidebar__nav-link:hover,
+.s-sidebar__nav-link:focus {
+    background: #4d6276;
+}
+
+.s-sidebar__nav-link>i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 4em;
+    height: 4em;
+}
+
+.s-sidebar__nav-link>i::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Mobile First */
+
+@media (min-width: 42em) {
+    .s-layout__content {
+        margin-left: 4em;
+    }
+    /* Sidebar */
+    .s-sidebar__trigger {
+        width: 4em;
+    }
+    .s-sidebar__nav {
+        width: 4em;
+        left: 0;
+    }
+    .s-sidebar__nav:hover,
+    .s-sidebar__nav:focus,
+    .s-sidebar__trigger:hover+.s-sidebar__nav,
+    .s-sidebar__trigger:focus+.s-sidebar__nav {
+        width: 15em;
+    }
+    #map {
+        width: calc(100vw - 4em);
+        margin-top: 0;
+        height: 100vh;
+    }
+    header {
+        z-index: 0;
+        width: 15em;
+        padding-left: 5em;
+        position: absolute;
+    }
+    .search input {
+        width: 100%;
+        height: 100%;
+        background: hsl(209, 41%, 24%);
+        border: none;
+    }
+    .search input:hover,
+    .search input:focus {
+        border: 1px solid moccasin;
+    }
+}
+
+@media (min-width: 68em) {
+    .s-layout__content {
+        margin-left: 15em;
+    }
+    /* Sidebar */
+    .s-sidebar__trigger {
+        display: none;
+    }
+    .s-sidebar__nav {
+        width: 15em;
+    }
+    #map {
+        width: calc(100vw - 15em);
+    }
+    header {
+        padding-left: 2em;
+    }
+}
+
+/* end .slideTwo */
+
+/* .slideThree */
+
+.slideThree {
+    width: 80px;
+    height: 26px;
+    background: hsl(209, 41%, 20%);
+    margin: 20px 15px 20px auto;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.slideThree:after {
+    content: 'OFF';
+    color: #000;
+    position: absolute;
+    right: 10px;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+}
+
+.slideThree:before {
+    content: 'ON';
+    color: moccasin;
+    position: absolute;
+    left: 10px;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+}
+
+.slideThree label {
+    display: block;
+    width: 34px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 1;
+    background: #fcfff4;
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.slideThree input[type=checkbox] {
+    visibility: hidden;
+}
+
+.slideThree input[type=checkbox]:checked+label {
+    left: 43px;
+}
+
+/* end .slideThree */
