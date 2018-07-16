@@ -10,22 +10,22 @@ class Sidebar extends Component {
                     </a>
                     <nav className="s-sidebar__nav">
                         <header>
-                            <h1 style={{ display: 'inline-block' }}>N-MAPS</h1>
-                            <span style={{}}> coventry</span>
+                            <h1>N-MAPS</h1>
+                            <span>coventry</span>
                         </header>
                         <ul>
                             <li>
                                 <div className="s-sidebar__nav-link">
-                                    <i class="fa fa-flag" />
+                                    <i className="fa fa-flag" />
                                     <em>POI</em>
                                     <div className="slideThree">
                                         <input type="checkbox" value="None" id="slideThree" name="check" />
-                                        <label for="slideThree" />
+                                        <label htmlFor="slideThree" />
                                     </div>
                                 </div>
                             </li>
                             <li>
-                                <div class="search s-sidebar__nav-link">
+                                <div className="search s-sidebar__nav-link">
                                     <span className="fa fa-search" />
                                     <input placeholder="Search place" />
                                 </div>
