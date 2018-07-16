@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import * as MapStyle from './GMaps_styles';
 
-class GMaps extends Component {
+class GMap extends Component {
     state = {
         map: {}
     };
@@ -55,4 +55,4 @@ class GMaps extends Component {
     }
 }
 
-export default GMaps;
+export default GMap;

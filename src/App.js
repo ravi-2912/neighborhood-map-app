@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GMaps from './components/GMaps';
+import GMap from './components/GMap';
 import Sidebar from './components/Sidebar';
 import './App.css';
 
@@ -8,7 +8,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Sidebar />
-                <GMaps />
+                <GMap />
             </div>
         );
     }
