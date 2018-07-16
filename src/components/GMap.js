@@ -48,9 +48,9 @@ class GMap extends Component {
 
     render() {
         return (
-            <div id="gmaps">
-                <div id="map" ref="map" />
-            </div>
+            <main className="s-layout__content">
+                <div id="map" />
+            </main>
         );
     }
 }
