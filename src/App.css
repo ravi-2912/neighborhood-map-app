@@ -14,7 +14,8 @@ body {
 }
 
 h1 {
-    font-size: 1.4em;
+    font-size: 1.2em;
+    line-height: 1.7em;
 }
 
 em {
@@ -36,7 +37,7 @@ header {
     background: #192b3c;
     height: 4em;
     width: 100vw;
-    padding-left: 5em;
+    padding-left: 4em;
     position: fixed;
     left: 0em;
 }
@@ -44,12 +45,16 @@ header {
 header h1 {
     color: moccasin;
     display: inline-block;
-    text-transform: uppercase;
+}
+
+header h1 span {
+    font-size: inherit;
+    font-weight: 100;
+    padding: 0;
 }
 
 header span {
     padding-left: 10px;
-    text-transform: uppercase;
     font-size: 0.8em;
 }
 
@@ -120,7 +125,7 @@ header span {
     color: moccasin;
 }
 
-.s-sidebar__nav ul {
+.s-sidebar__nav ul.filter-option {
     position: absolute;
     top: 4em;
     left: 0;
@@ -129,8 +134,22 @@ header span {
     width: 15em;
 }
 
-.s-sidebar__nav ul li {
+.s-sidebar__nav ul li.filter-option-item {
     width: 100%;
+    height: 68px;
+}
+
+.s-sidebar__nav ul li.li-cafes-list {
+    height: 100%;
+}
+
+.s-sidebar__nav ul.ul-cafes-list {
+    position: relative;
+    padding: 0;
+}
+
+.ul-cafes-list li.cafe-list-item {
+    height: 3.2em;
 }
 
 .s-sidebar__nav-link {
@@ -138,6 +157,22 @@ header span {
     display: inline-block;
     width: 100%;
     height: 4em;
+}
+
+.cafe-list-item .s-sidebar__nav-link {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 3em;
+}
+
+.cafe-list-item .s-sidebar__nav-link>i {
+    height: 3em;
+}
+
+.cafe-list-item .s-sidebar__nav-link em {
+    padding-left: 1em;
+    font-size: 0.8em;
 }
 
 .s-sidebar__nav-link em {
@@ -151,6 +186,7 @@ header span {
     position: relative;
     color: hsla(38, 100%, 85%, 0.7);
     padding: 1em;
+    height: 4em;
 }
 
 .search input {
@@ -242,12 +278,9 @@ header span {
     header {
         z-index: 0;
         width: 15em;
-        padding-left: 5em;
         position: absolute;
     }
     .search input {
-        width: 100%;
-        height: 100%;
         background: hsl(209, 41%, 24%);
         border: none;
     }
@@ -273,6 +306,10 @@ header span {
     }
     header {
         padding-left: 2em;
+    }
+    h1 {
+        font-size: 1.4em;
+        line-height: 1.3em;
     }
 }
 
