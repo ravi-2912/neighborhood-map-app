@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import * as MapStyle from './GMaps_styles';
 
 class GMap extends Component {
-    state = {
-        map: {}
+    static propTypes = {
+        loc: PropTypes.object.isRequired,
+        onMapLoad: PropTypes.func.isRequired
     };
 
     loadJS = src => {
@@ -17,23 +18,31 @@ class GMap extends Component {
 
     initMap = () => {
         let map;
-        let loc = {
-            lat: 52.4083,
-            lng: -1.5071
-        };
         try {
             map = new window.google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
-                center: loc,
+                center: this.props.loc,
                 styles: MapStyle.retro_simplified
             });
         } catch (err) {
-            console.log('[ GMaps > initMap() ]: Google Maps not found in window context.\n', err);
+            console.log('[ GMaps > initMap() ]: Google Maps could not be initialised.\n', err);
         } finally {
             if (map) {
-                this.setState({ map });
+                this.props.onMapLoad(map);
             }
         }
+        // Adds a marker to the map.
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            return new window.google.maps.Marker({
+                position: location,
+                map: map,
+                animation: window.google.maps.Animation.DROP
+            });
+        }
+        const cafes = this.props.cafes;
+        cafes.map(cafe => addMarker({ lat: cafe.location.lat, lng: cafe.location.lng }, map));
     };
 
     componentDidMount() {
