@@ -10,11 +10,13 @@ class Sidebar extends Component {
                     </a>
                     <nav className="s-sidebar__nav">
                         <header>
-                            <h1>N-MAPS</h1>
-                            <span>coventry</span>
+                            <h1>
+                                Café<span>MAP</span>
+                            </h1>
+                            <span>COVENTRY</span>
                         </header>
-                        <ul>
-                            <li>
+                        <ul className="filter-option">
+                            <li className="filter-option-item">
                                 <div className="s-sidebar__nav-link">
                                     <i className="fa fa-flag" />
                                     <em>POI</em>
@@ -24,29 +26,28 @@ class Sidebar extends Component {
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            <li className="filter-option-item">
                                 <div className="search s-sidebar__nav-link">
                                     <span className="fa fa-search" />
-                                    <input placeholder="Search place" />
+                                    <input
+                                        placeholder="Filter cafe"
+                                        value={this.props.query}
+                                        onChange={event => this.props.onQuery(event.target.value)}
+                                    />
                                 </div>
                             </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="#0">
-                                    <i className="fa fa-home" />
-                                    <em>Home</em>
-                                </a>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="#0">
-                                    <i className="fa fa-user" />
-                                    <em>My Profile</em>
-                                </a>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="#0">
-                                    <i className="fa fa-camera" />
-                                    <em>Camera</em>
-                                </a>
+
+                            <li className="li-cafes-list">
+                                <ul className="ul-cafes-list">
+                                    {this.props.cafes.map(cafe => (
+                                        <li key={cafe.id} className="cafe-list-item">
+                                            <a className="s-sidebar__nav-link" href="#0">
+                                                <i className="fa fa-coffee" />
+                                                <em>{cafe.name}</em>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
                             </li>
                         </ul>
                     </nav>
