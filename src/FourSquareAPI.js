@@ -23,7 +23,6 @@ export const venue = venueID => {
 };
 
 const handleErrors = response => {
-    console.log(response);
     if (!response.ok) {
         throw Error('FourSqaure response error');
     }
