@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import GMap from './components/GMap';
 import Sidebar from './components/Sidebar';
-import './App.css';
 import * as CAFE from './components/CovCafeLsit';
 import escapeRegExp from 'escape-string-regexp';
+import * as FSAPI from './FourSquareAPI';
+import './App.css';
 
 class App extends Component {
     state = {
@@ -11,7 +12,7 @@ class App extends Component {
             lat: 52.4083,
             lng: -1.5071
         },
-        cafes: CAFE.CovCafeList.response.venues,
+        cafes: {},
         query: '',
         searchedCafes: CAFE.CovCafeList.response.venues,
         markers: []
@@ -46,8 +47,13 @@ class App extends Component {
 
     onMapMarkerUpdate = markers => {
         this.setState({ markers });
-        console.log(this.state.markers);
     };
+
+    componentDidMount() {
+        FSAPI.search('cafe', this.state.loc)
+            .then(res => this.setState({ cafes: res.response.venues }))
+            .catch(err => this.setState(this.setState({ cafes: CAFE.CovCafeList.response.venues })));
+    }
 
     render() {
         return (
