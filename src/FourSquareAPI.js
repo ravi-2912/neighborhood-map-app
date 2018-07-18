@@ -1,10 +1,7 @@
 var FOURSQUARE_CLIENT_ID = 'OJWWM4KM2QIC1ZYNR2GGNPSYVMFIIMQQJSYCHQJ1DVOQHEIO';
 var FOURSQUARE_CLIENT_SECRET = '5X0YJTIWGJC34YIDAAIOAEXXFBB2SHE3JPWNYO23ROQKYMX2';
-var loc = {
-    lat: 52.4083,
-    lng: -1.5071
-};
-var search = (query, location) =>
+
+export const search = (query, location) =>
     fetch(`https://api.foursquare.com/v2/venues/search?
             ll=${location.lat},${location.lng}
             &query=${query}

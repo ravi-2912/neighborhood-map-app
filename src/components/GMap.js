@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import * as MapStyle from './GMaps_styles';
 
 class GMap extends Component {
+    state = {
+        map: {},
+        info: {},
+        markers: []
+    };
+
     static propTypes = {
-        loc: PropTypes.object.isRequired,
-        onMapLoad: PropTypes.func.isRequired
+        onMapMarkerUpdate: PropTypes.func.isRequired
     };
 
     loadJS = src => {
@@ -28,28 +33,67 @@ class GMap extends Component {
             console.log('[ GMaps > initMap() ]: Google Maps could not be initialised.\n', err);
         } finally {
             if (map) {
-                this.props.onMapLoad(map);
+                var infowindow = new window.google.maps.InfoWindow({});
+                this.setState({ map: map, info: infowindow });
+                this.generateMarkers();
             }
         }
-        // Adds a marker to the map.
-        function addMarker(location, map) {
-            // Add the marker at the clicked location, and add the next-available label
-            // from the array of alphabetical characters.
-            return new window.google.maps.Marker({
-                position: location,
-                map: map,
-                animation: window.google.maps.Animation.DROP
+    };
+    generateMarkers = () => {
+        var markers = [];
+        this.props.cafes.forEach(cafe => {
+            const loc = { lat: cafe.location.lat, lng: cafe.location.lng };
+
+            let mark = new window.google.maps.Marker({
+                position: loc,
+                map: this.state.map,
+                title: cafe.name
             });
-        }
-        const cafes = this.props.cafes;
-        cafes.map(cafe => addMarker({ lat: cafe.location.lat, lng: cafe.location.lng }, map));
+
+            mark.addListener('click', () => {
+                this.state.map.panTo(mark.getPosition());
+                this.state.info.setContent(`
+                    <div tabIndex="1" name=test>
+                        <p>Hello</p>
+                        <p>Tip provided by <a tabIndex="1" href="https://foursquare.com/">FOURSQUARE</a></p>
+                    </div>`);
+                this.state.info.open(this.state.map, mark);
+            });
+
+            mark.addListener('mouseover', function() {
+                this.setAnimation(window.google.maps.Animation.BOUNCE);
+            });
+
+            mark.addListener('mouseout', function() {
+                this.setAnimation(null);
+            });
+            markers.push(mark);
+        });
+        this.setState({ markers });
+        this.props.onMapMarkerUpdate(markers);
     };
 
+    removeMarkers = () => {
+        this.state.markers.map(mark => mark.setMap(null));
+        this.setState({ markers: [] });
+        this.props.onMapMarkerUpdate([]);
+    };
+
+    componentWillUpdate(prevProps) {
+        if (this.props.cafes.length !== prevProps.cafes.length) {
+            this.removeMarkers();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.cafes.length !== prevProps.cafes.length) {
+            this.generateMarkers();
+        }
+    }
+
     componentDidMount() {
-        // Connect the initMap() function within this class to the global window context,
-        // so Google Maps can invoke it
         window.initMap = this.initMap;
-        // Asynchronously load the Google Maps script, passing in the callback reference
+
         this.loadJS(
             'https://maps.googleapis.com/maps/api/js?key=AIzaSyAqTOMMBtXHqq8QFxZJxXE7fMOUMJtTx_w&callback=initMap'
         );

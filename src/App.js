@@ -7,14 +7,14 @@ import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
     state = {
-        map: {},
         loc: {
             lat: 52.4083,
             lng: -1.5071
         },
         cafes: CAFE.CovCafeList.response.venues,
         query: '',
-        searchedCafes: CAFE.CovCafeList.response.venues
+        searchedCafes: CAFE.CovCafeList.response.venues,
+        markers: []
     };
 
     onMapLoad = map => {
@@ -44,11 +44,25 @@ class App extends Component {
         this.setState({ searchedCafes });
     };
 
+    onMapMarkerUpdate = markers => {
+        this.setState({ markers });
+        console.log(this.state.markers);
+    };
+
     render() {
         return (
             <div className="App s-layout">
-                <Sidebar query={this.state.query} cafes={this.state.searchedCafes} onQuery={this.onQuery} />
-                <GMap cafes={this.state.searchedCafes} loc={this.state.loc} onMapLoad={this.onMapLoad} />
+                <Sidebar
+                    query={this.state.query}
+                    cafes={this.state.searchedCafes}
+                    onQuery={this.onQuery}
+                    markers={this.state.markers}
+                />
+                <GMap
+                    cafes={this.state.searchedCafes}
+                    loc={this.state.loc}
+                    onMapMarkerUpdate={this.onMapMarkerUpdate}
+                />
             </div>
         );
     }
