@@ -27,7 +27,7 @@ class GMap extends Component {
             map = new window.google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: this.props.loc,
-                styles: MapStyle.retro_simplified
+                styles: MapStyle.retro_simplified_labelOff
             });
         } catch (err) {
             console.log('[ GMaps > initMap() ]: Google Maps could not be initialised.\n', err);
@@ -80,16 +80,27 @@ class GMap extends Component {
         this.props.onMapMarkerUpdate([]);
     };
 
-    componentWillUpdate(prevProps) {
+    togglePOI = prevProps => {
+        if (this.props.poi !== prevProps.poi) {
+            this.props.poi
+                ? this.props.map.setOptions({ styles: MapStyle.retro_simplified_labelOn })
+                : this.props.map.setOptions({ styles: MapStyle.retro_simplified_labelOff });
+        }
+    };
+
+    componentWillReceiveProps(prevProps) {
         if (this.props.cafes.length !== prevProps.cafes.length) {
             this.removeMarkers();
         }
+
+        this.togglePOI(prevProps);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.cafes.length !== prevProps.cafes.length) {
             window.google && this.generateMarkers();
         }
+        this.togglePOI(prevProps);
     }
 
     componentDidMount() {
@@ -98,6 +109,7 @@ class GMap extends Component {
         this.loadJS(
             'https://maps.googleapis.com/maps/api/js?key=AIzaSyAqTOMMBtXHqq8QFxZJxXE7fMOUMJtTx_w&callback=initMap'
         );
+        //this.togglePOI(prevProps);
     }
 
     render() {

@@ -31,7 +31,16 @@ class Sidebar extends Component {
                                     <i className="fa fa-flag" />
                                     <em>POI</em>
                                     <div className="slideThree">
-                                        <input type="checkbox" value="None" id="slideThree" name="check" />
+                                        <input
+                                            type="checkbox"
+                                            value="None"
+                                            id="slideThree"
+                                            name="check"
+                                            onChange={event => {
+                                                console.log(event.target.checked);
+                                                this.props.onTogglePOI(event.target.checked);
+                                            }}
+                                        />
                                         <label htmlFor="slideThree" />
                                     </div>
                                 </div>

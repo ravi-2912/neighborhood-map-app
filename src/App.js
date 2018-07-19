@@ -47,6 +47,11 @@ class App extends Component {
 
     onMapUpdate = map => this.setState({ map });
 
+    onTogglePOI = toggle => this.setState({ poi: toggle });
+    /*toggle
+            ? this.state.map.setOptions({ styles: styles['default'] })
+            : this.state.map.setOptions({ styles: styles['hide'] });*/
+
     componentDidMount() {
         FSAPI.search('cafe', this.state.loc)
             .then(res => this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }))
@@ -69,6 +74,7 @@ class App extends Component {
                     cafes={this.state.searchedCafes}
                     onQuery={this.onQuery}
                     markers={this.state.markers}
+                    onTogglePOI={this.onTogglePOI}
                 />
                 <GMap
                     map={this.state.map}
@@ -77,6 +83,7 @@ class App extends Component {
                     loc={this.state.loc}
                     onMapMarkerUpdate={this.onMapMarkerUpdate}
                     onMapUpdate={this.onMapUpdate}
+                    poi={this.state.poi}
                 />
             </div>
         );
