@@ -109,6 +109,9 @@ export const retro_simplified = [
         stylers: [
             {
                 color: '#dfd2ae'
+            },
+            {
+                visibility: 'on'
             }
         ]
     },
