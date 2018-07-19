@@ -6,7 +6,7 @@ export const search = (query, location) =>
         `https://api.foursquare.com/v2/venues/search?` +
             `ll=${location.lat},${location.lng}` +
             `&query=${query}` +
-            `&limit=10` +
+            `&limit=20` +
             `&radius=50000` +
             `&client_id=${FOURSQUARE_CLIENT_ID}` +
             `&client_secret=${FOURSQUARE_CLIENT_SECRET}` +
