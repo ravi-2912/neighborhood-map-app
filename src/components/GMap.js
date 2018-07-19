@@ -4,9 +4,9 @@ import * as MapStyle from './GMaps_styles';
 
 class GMap extends Component {
     state = {
-        map: {},
-        info: {},
-        markers: []
+        // map: {},
+        info: {}
+        // markers: []
     };
 
     static propTypes = {
@@ -34,7 +34,8 @@ class GMap extends Component {
         } finally {
             if (map) {
                 var infowindow = new window.google.maps.InfoWindow({});
-                this.setState({ map: map, info: infowindow });
+                this.setState({ info: infowindow });
+                this.props.onMapUpdate(map);
                 this.generateMarkers();
             }
         }
@@ -46,12 +47,12 @@ class GMap extends Component {
 
             let mark = new window.google.maps.Marker({
                 position: loc,
-                map: this.state.map,
+                map: this.props.map,
                 title: cafe.name
             });
 
             mark.addListener('click', () => {
-                this.state.map.panTo(mark.getPosition());
+                this.props.map.panTo(mark.getPosition());
                 this.state.info.setContent(`
                     <div tabIndex="1" name=test>
                         <p>Hello</p>
@@ -69,13 +70,13 @@ class GMap extends Component {
             });
             markers.push(mark);
         });
-        this.setState({ markers });
+        //this.setState({ markers });
         this.props.onMapMarkerUpdate(markers);
     };
 
     removeMarkers = () => {
-        this.state.markers.map(mark => mark.setMap(null));
-        this.setState({ markers: [] });
+        this.props.markers.map(mark => mark.setMap(null));
+        //this.setState({ markers: [] });
         this.props.onMapMarkerUpdate([]);
     };
 
@@ -87,7 +88,7 @@ class GMap extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.cafes.length !== prevProps.cafes.length) {
-            this.generateMarkers();
+            window.google && this.generateMarkers();
         }
     }
 

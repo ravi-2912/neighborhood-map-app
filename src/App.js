@@ -15,11 +15,9 @@ class App extends Component {
         cafes: {},
         query: '',
         searchedCafes: CAFE.CovCafeList.response.venues,
-        markers: []
-    };
-
-    onMapLoad = map => {
-        this.setState({ map });
+        markers: [],
+        poi: false,
+        map: {}
     };
 
     onQuery = query => {
@@ -45,14 +43,22 @@ class App extends Component {
         this.setState({ searchedCafes });
     };
 
-    onMapMarkerUpdate = markers => {
-        this.setState({ markers });
-    };
+    onMapMarkerUpdate = markers => this.setState({ markers });
+
+    onMapUpdate = map => this.setState({ map });
 
     componentDidMount() {
         FSAPI.search('cafe', this.state.loc)
-            .then(res => this.setState({ cafes: res.response.venues }))
-            .catch(err => this.setState(this.setState({ cafes: CAFE.CovCafeList.response.venues })));
+            .then(res => this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }))
+            .catch(err => {
+                console.log(err);
+                this.setState(
+                    this.setState({
+                        cafes: CAFE.CovCafeList.response.venues,
+                        searchedCafes: CAFE.CovCafeList.response.venues
+                    })
+                );
+            });
     }
 
     render() {
@@ -65,9 +71,12 @@ class App extends Component {
                     markers={this.state.markers}
                 />
                 <GMap
+                    map={this.state.map}
+                    markers={this.state.markers}
                     cafes={this.state.searchedCafes}
                     loc={this.state.loc}
                     onMapMarkerUpdate={this.onMapMarkerUpdate}
+                    onMapUpdate={this.onMapUpdate}
                 />
             </div>
         );
