@@ -146,6 +146,9 @@ header span {
 .s-sidebar__nav ul.ul-cafes-list {
     position: relative;
     padding: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: calc(90vh - 192px);
 }
 
 .ul-cafes-list li.cafe-list-item {
@@ -373,3 +376,31 @@ header span {
 }
 
 /* end .slideThree */
+
+/*======= Scrollbar======*/
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 4px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: hsla(38, 100%, 85%, 0.7);
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: moccasin;
+}
