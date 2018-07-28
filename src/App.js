@@ -53,17 +53,32 @@ class App extends Component {
             : this.state.map.setOptions({ styles: styles['hide'] });*/
 
     componentDidMount() {
+        var cafeVenueData;
+        let getVenueData = () => {
+            //this.state.cafes.map((cafe, i) =>
+            FSAPI.venue(this.state.cafes[3].id).then(res => console.log('venue fetch', res));
+        };
+
         FSAPI.search('cafe', this.state.loc)
-            .then(res => this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }))
+            .then(res =>
+                this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }, function() {
+                    getVenueData();
+                })
+            )
             .catch(err => {
                 console.log(err);
                 this.setState(
-                    this.setState({
+                    {
                         cafes: CAFE.CovCafeList.response.venues,
                         searchedCafes: CAFE.CovCafeList.response.venues
-                    })
+                    },
+                    function() {
+                        getVenueData();
+                    }
                 );
             });
+
+        console.log(cafeVenueData);
     }
 
     render() {
