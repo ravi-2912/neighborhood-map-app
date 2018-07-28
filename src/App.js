@@ -17,7 +17,9 @@ class App extends Component {
         searchedCafes: CAFE.CovCafeList.response.venues,
         markers: [],
         poi: false,
-        map: {}
+        map: {},
+        info: {},
+        venuesPic: {}
     };
 
     onQuery = query => {
@@ -48,37 +50,25 @@ class App extends Component {
     onMapUpdate = map => this.setState({ map });
 
     onTogglePOI = toggle => this.setState({ poi: toggle });
-    /*toggle
-            ? this.state.map.setOptions({ styles: styles['default'] })
-            : this.state.map.setOptions({ styles: styles['hide'] });*/
+
+    onMouseOver = i => window.google.maps.event.trigger(this.state.markers[i], 'mouseover');
+    //onMouseOver = i => this.state.markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
+
+    onMouseOut = i => window.google.maps.event.trigger(this.state.markers[i], 'mouseout');
+    //onMouseOut = i => this.state.markers[i].setAnimation(null);
+
+    onClick = i => window.google.maps.event.trigger(this.state.markers[i], 'click');
 
     componentDidMount() {
-        var cafeVenueData;
-        let getVenueData = () => {
-            //this.state.cafes.map((cafe, i) =>
-            FSAPI.venue(this.state.cafes[3].id).then(res => console.log('venue fetch', res));
-        };
-
         FSAPI.search('cafe', this.state.loc)
-            .then(res =>
-                this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }, function() {
-                    getVenueData();
-                })
-            )
+            .then(res => this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }))
             .catch(err => {
                 console.log(err);
-                this.setState(
-                    {
-                        cafes: CAFE.CovCafeList.response.venues,
-                        searchedCafes: CAFE.CovCafeList.response.venues
-                    },
-                    function() {
-                        getVenueData();
-                    }
-                );
+                this.setState({
+                    cafes: CAFE.CovCafeList.response.venues,
+                    searchedCafes: CAFE.CovCafeList.response.venues
+                });
             });
-
-        console.log(cafeVenueData);
     }
 
     render() {
@@ -88,8 +78,10 @@ class App extends Component {
                     query={this.state.query}
                     cafes={this.state.searchedCafes}
                     onQuery={this.onQuery}
-                    markers={this.state.markers}
                     onTogglePOI={this.onTogglePOI}
+                    onMouseOver={this.onMouseOver}
+                    onMouseOut={this.onMouseOut}
+                    onClick={this.onClick}
                 />
                 <GMap
                     map={this.state.map}
