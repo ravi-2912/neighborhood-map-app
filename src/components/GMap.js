@@ -53,11 +53,16 @@ class GMap extends Component {
 
             mark.addListener('click', () => {
                 this.props.map.panTo(mark.getPosition());
-                this.state.info.setContent(`
-                    <div tabIndex="1" name=test>
-                        <p>Hello</p>
-                        <p>Tip provided by <a tabIndex="1" href="https://foursquare.com/">FOURSQUARE</a></p>
-                    </div>`);
+                this.state.info.setContent(
+                    `<div tabIndex=1>
+                            <h1>${cafe.name}</h1>
+                            <address>
+                                ${cafe.location.formattedAddress[0]}, ${cafe.location.formattedAddress[1]}, ${
+                        cafe.location.formattedAddress[2]
+                    }
+                            </address>
+                        </div>`
+                );
                 this.state.info.open(this.state.map, mark);
             });
 
