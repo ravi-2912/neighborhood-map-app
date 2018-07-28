@@ -15,12 +15,15 @@ export const search = (query, location) =>
         .then(handleErrors)
         .catch(err => console.log('Network Error\n', err));
 
-export const venue = venueID => {
-    fetch(`https://api.foursquare.com/v2/venues/${venueID}`)
-        .then(res => (res.status === 200 ? res.json() : (res.infowindow.msg = 'Sorry data cannot be loaded')))
-        .then(data => data.response.venues)
-        .catch(err => console.log('Foursquare cannot be reached\n', err));
-};
+export const venue = venueID =>
+    fetch(
+        `https://api.foursquare.com/v2/venues/${venueID}?` +
+            `&client_id=${FOURSQUARE_CLIENT_ID}` +
+            `&client_secret=${FOURSQUARE_CLIENT_SECRET}` +
+            `&v=20180717`
+    )
+        .then(handleErrors)
+        .catch(err => console.log('Network Error\n', err));
 
 const handleErrors = response => {
     if (!response.ok) {
