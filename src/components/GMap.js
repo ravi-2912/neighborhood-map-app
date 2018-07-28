@@ -40,39 +40,47 @@ class GMap extends Component {
     };
     generateMarkers = () => {
         var markers = [];
-        this.props.cafes.forEach(cafe => {
-            const loc = { lat: cafe.location.lat, lng: cafe.location.lng };
+        this.props.cafes.forEach((cafe, i) =>
+            setTimeout(() => {
+                const loc = { lat: cafe.location.lat, lng: cafe.location.lng };
 
-            let mark = new window.google.maps.Marker({
-                position: loc,
-                map: this.props.map,
-                title: cafe.name
-            });
+                let mark = new window.google.maps.Marker({
+                    position: loc,
+                    map: this.props.map,
+                    title: cafe.name,
+                    animation: window.google.maps.Animation.DROP
+                });
 
-            mark.addListener('click', () => {
-                this.props.map.panTo(mark.getPosition());
-                this.state.info.setContent(
-                    `<div tabIndex=1>
+                mark.addListener('click', () => {
+                    this.props.map.panTo(mark.getPosition());
+                    this.state.info.setContent(
+                        `<div class="info-window" tabIndex=1>
                             <h1>${cafe.name}</h1>
                             <address>
                                 ${cafe.location.formattedAddress[0]}, ${cafe.location.formattedAddress[1]}, ${
-                        cafe.location.formattedAddress[2]
-                    }
+                            cafe.location.formattedAddress[2]
+                        }
                             </address>
+                            <p>
+                            <a href="https://foursquare.com/v/${
+                                cafe.id
+                            }" target="_blank">Read more on <b>Fourquare</b>.</a>
+                            </p>
                         </div>`
-                );
-                this.state.info.open(this.state.map, mark);
-            });
+                    );
+                    this.state.info.open(this.state.map, mark);
+                });
 
-            mark.addListener('mouseover', function() {
-                this.setAnimation(window.google.maps.Animation.BOUNCE);
-            });
+                mark.addListener('mouseover', function() {
+                    this.setAnimation(window.google.maps.Animation.BOUNCE);
+                });
 
-            mark.addListener('mouseout', function() {
-                this.setAnimation(null);
-            });
-            markers.push(mark);
-        });
+                mark.addListener('mouseout', function() {
+                    this.setAnimation(null);
+                });
+                markers.push(mark);
+            }, i * 100)
+        );
         //this.setState({ markers });
         this.props.onMapMarkerUpdate(markers);
     };
