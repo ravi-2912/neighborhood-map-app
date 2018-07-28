@@ -4,9 +4,7 @@ import * as MapStyle from './GMaps_styles';
 
 class GMap extends Component {
     state = {
-        // map: {},
         info: {}
-        // markers: []
     };
 
     static propTypes = {
