@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
 class Sidebar extends Component {
-    onMouseOver = i => {
-        this.props.markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
-    };
-
-    onMouseOut = i => {
-        this.props.markers[i].setAnimation(null);
-    };
-
-    onClick = i => {};
-
     render() {
         return (
             <div className="s-layout">
@@ -60,9 +50,9 @@ class Sidebar extends Component {
                                             <a
                                                 className="s-sidebar__nav-link"
                                                 href={`#${i}`}
-                                                onMouseOver={event => this.onMouseOver(i)}
-                                                onMouseOut={event => this.onMouseOut(i)}
-                                                onClick={event => this.onClick(i)}
+                                                onMouseOver={event => this.props.onMouseOver(i)}
+                                                onMouseOut={event => this.props.onMouseOut(i)}
+                                                onClick={event => this.props.onClick(i)}
                                             >
                                                 <i className="fa fa-coffee" />
                                                 <em>{cafe.name}</em>
