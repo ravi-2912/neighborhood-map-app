@@ -36,10 +36,7 @@ class Sidebar extends Component {
                                             value="None"
                                             id="slideThree"
                                             name="check"
-                                            onChange={event => {
-                                                console.log(event.target.checked);
-                                                this.props.onTogglePOI(event.target.checked);
-                                            }}
+                                            onChange={event => this.props.onTogglePOI(event.target.checked)}
                                         />
                                         <label htmlFor="slideThree" />
                                     </div>
