@@ -19,7 +19,7 @@ class App extends Component {
         poi: false,
         map: {},
         info: {},
-        venuesPic: {}
+        infoWindow: {}
     };
 
     onQuery = query => {
@@ -48,6 +48,8 @@ class App extends Component {
     onMapMarkerUpdate = markers => this.setState({ markers });
 
     onMapUpdate = map => this.setState({ map });
+
+    onInfoWindowUpdate = infoWindow => this.setState({ infoWindow });
 
     onTogglePOI = toggle => this.setState({ poi: toggle });
 
@@ -88,9 +90,11 @@ class App extends Component {
                     markers={this.state.markers}
                     cafes={this.state.searchedCafes}
                     loc={this.state.loc}
+                    poi={this.state.poi}
+                    infoWindow={this.state.infoWindow}
                     onMapMarkerUpdate={this.onMapMarkerUpdate}
                     onMapUpdate={this.onMapUpdate}
-                    poi={this.state.poi}
+                    onInfoWindowUpdate={this.onInfoWindowUpdate}
                 />
             </div>
         );

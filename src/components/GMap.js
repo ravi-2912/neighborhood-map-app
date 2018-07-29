@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import * as MapStyle from './GMaps_styles';
 
 class GMap extends Component {
-    state = {
-        info: {}
-    };
-
     static propTypes = {
         onMapMarkerUpdate: PropTypes.func.isRequired
     };
@@ -32,7 +28,7 @@ class GMap extends Component {
         } finally {
             if (map) {
                 var infowindow = new window.google.maps.InfoWindow({});
-                this.setState({ info: infowindow });
+                this.props.onInfoWindowUpdate(infowindow);
                 this.props.onMapUpdate(map);
                 this.generateMarkers();
             }
@@ -53,7 +49,7 @@ class GMap extends Component {
 
                 mark.addListener('click', () => {
                     this.props.map.panTo(mark.getPosition());
-                    this.state.info.setContent(
+                    this.props.infoWindow.setContent(
                         `<div class="info-window" tabIndex=1>
                             <h1>${cafe.name}</h1>
                             <address>
@@ -68,7 +64,7 @@ class GMap extends Component {
                             </p>
                         </div>`
                     );
-                    this.state.info.open(this.state.map, mark);
+                    this.props.infoWindow.open(this.props.map, mark);
                 });
 
                 mark.addListener('mouseover', function() {
@@ -81,13 +77,11 @@ class GMap extends Component {
                 markers.push(mark);
             }, i * 100)
         );
-        //this.setState({ markers });
         this.props.onMapMarkerUpdate(markers);
     };
 
     removeMarkers = () => {
         this.props.markers.map(mark => mark.setMap(null));
-        //this.setState({ markers: [] });
         this.props.onMapMarkerUpdate([]);
     };
 
