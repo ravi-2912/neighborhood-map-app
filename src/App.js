@@ -19,7 +19,9 @@ class App extends Component {
         poi: false,
         map: {},
         info: {},
-        infoWindow: {}
+        infoWindow: {},
+        fsCon: '',
+        googleCon: 'red'
     };
 
     onQuery = query => {
@@ -63,13 +65,15 @@ class App extends Component {
 
     componentDidMount() {
         FSAPI.search('cafe', this.state.loc)
-            .then(res => this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues }))
+            .then(res =>
+                this.setState({ cafes: res.response.venues, searchedCafes: res.response.venues, fsCon: 'green' })
+            )
             .catch(err => {
-                console.log(err);
                 this.setState({
                     cafes: CAFE.CovCafeList.response.venues,
                     searchedCafes: CAFE.CovCafeList.response.venues
                 });
+                this.setState({ fsCon: 'red' });
             });
     }
 
@@ -84,6 +88,7 @@ class App extends Component {
                     onMouseOver={this.onMouseOver}
                     onMouseOut={this.onMouseOut}
                     onClick={this.onClick}
+                    fsCon={this.state.fsCon}
                 />
                 <GMap
                     map={this.state.map}

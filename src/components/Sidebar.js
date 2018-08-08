@@ -27,6 +27,8 @@ class Sidebar extends Component {
                                             id="slideThree"
                                             name="check"
                                             onChange={event => this.props.onTogglePOI(event.target.checked)}
+                                            aria-label={'Point of Interest'}
+                                            aria-checked="false"
                                         />
                                         <label htmlFor="slideThree" />
                                     </div>
@@ -53,6 +55,7 @@ class Sidebar extends Component {
                                                 onMouseOver={event => this.props.onMouseOver(i)}
                                                 onMouseOut={event => this.props.onMouseOut(i)}
                                                 onClick={event => this.props.onClick(i)}
+                                                aria-label={cafe.name}
                                             >
                                                 <i className="fa fa-coffee" />
                                                 <em>{cafe.name}</em>
@@ -60,6 +63,21 @@ class Sidebar extends Component {
                                         </li>
                                     ))}
                                 </ul>
+                            </li>
+                            <li className={`li-cafes-list network-status ${this.props.fsCon}`}>
+                                <div>
+                                    <p className="network-status-msg">
+                                        {this.props.fsCon == 'green' ? (
+                                            <b>
+                                                Powered by <a href="https://foursquare.com/">Foursquare</a>
+                                            </b>
+                                        ) : (
+                                            <b>
+                                                Connection error to <a href="https://foursquare.com/">Foursquare</a>
+                                            </b>
+                                        )}
+                                    </p>
+                                </div>
                             </li>
                         </ul>
                     </nav>

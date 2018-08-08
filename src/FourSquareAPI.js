@@ -13,7 +13,10 @@ export const search = (query, location) =>
             `&v=20180717`
     )
         .then(handleErrors)
-        .catch(err => console.log('Network Error\n', err));
+        .catch(err => {
+            throw Error('network-error');
+        });
+//.catch(err => console.log('Network Error\n', err));
 
 export const venue = venueID =>
     fetch(
@@ -27,7 +30,7 @@ export const venue = venueID =>
 
 const handleErrors = response => {
     if (!response.ok) {
-        throw Error('FourSqaure response error');
+        throw Error(response.status);
     }
     return response.json();
 };

@@ -57,7 +57,7 @@ class GMap extends Component {
                             cafe.location.formattedAddress[2]
                         }
                             </address>
-                            <p>
+                            <p class="info-win-text">
                             <a href="https://foursquare.com/v/${
                                 cafe.id
                             }" target="_blank">Read more on <b>Fourquare</b>.</a>
@@ -119,8 +119,8 @@ class GMap extends Component {
 
     render() {
         return (
-            <main className="s-layout__content">
-                <div id="map" />
+            <main className="s-layout__content" aria-label={'cafe-map-marker'} aria-required="true">
+                <div role="application" id="map" />
             </main>
         );
     }
