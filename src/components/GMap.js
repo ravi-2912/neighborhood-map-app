@@ -112,7 +112,7 @@ class GMap extends Component {
         window.initMap = this.initMap;
 
         this.loadJS(
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyAqTOMMBtXHqq8QFxZJxXE7fMOUMJtTx_w&callback=initMap'
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
         );
         //this.togglePOI(prevProps);
     }
