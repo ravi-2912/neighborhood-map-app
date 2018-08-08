@@ -119,7 +119,7 @@ class GMap extends Component {
 
     render() {
         return (
-            <main className="s-layout__content" aria-label={'cafe-map-marker'} aria-required="true">
+            <main className="s-layout__content" aria-label={'cafe-map-marker'}>
                 <div role="application" id="map" />
             </main>
         );

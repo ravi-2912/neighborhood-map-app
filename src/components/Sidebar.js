@@ -41,6 +41,7 @@ class Sidebar extends Component {
                                         placeholder="Filter cafe"
                                         value={this.props.query}
                                         onChange={event => this.props.onQuery(event.target.value)}
+                                        aria-label={'Filter from cafes list'}
                                     />
                                 </div>
                             </li>
@@ -67,13 +68,19 @@ class Sidebar extends Component {
                             <li className={`li-cafes-list network-status ${this.props.fsCon}`}>
                                 <div>
                                     <p className="network-status-msg">
-                                        {this.props.fsCon == 'green' ? (
+                                        {this.props.fsCon === 'green' ? (
                                             <b>
-                                                Powered by <a href="https://foursquare.com/">Foursquare</a>
+                                                Powered by{' '}
+                                                <a href="https://foursquare.com/" target="_blank">
+                                                    Foursquare
+                                                </a>
                                             </b>
                                         ) : (
                                             <b>
-                                                Connection error to <a href="https://foursquare.com/">Foursquare</a>
+                                                Connection error to{' '}
+                                                <a href="https://foursquare.com/" target="_blank">
+                                                    Foursquare
+                                                </a>
                                             </b>
                                         )}
                                     </p>
