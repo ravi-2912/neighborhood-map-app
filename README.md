@@ -9,7 +9,7 @@ _By Ravinder Singh_
 This single page app uses the [Google Maps API](https://cloud.google.com/maps-platform/maps/) and the location-based
 service [Foursquare API](https://developer.foursquare.com/serve) to list some popular Cafés in the Coventry, UK.
 
-![Screenshot for Café Map, a React Neighborhood Map App](https://github.com/ravi-2912/neighborhood-map-app/blob/master/screenshots/screen%201.png)
+![Screenshot for Café Map, a React Neighborhood Map App](https://github.com/ravi-2912/neighborhood-map-app/blob/master/screenshots/screen-1.png)
 
 ### Features
 
