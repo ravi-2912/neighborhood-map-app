@@ -120,7 +120,10 @@ class GMap extends Component {
         */
         Load.js(
             'https://maps.groogleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
-        ).catch(() => console.log('errorrrr'));
+        ).catch(() => {
+            document.getElementById('map').innerHTML = `
+            <h1 style="margin:auto; color:red;">Failed to load Google Maps API.</h1>`;
+        });
     }
 
     render() {
