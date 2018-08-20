@@ -1,5 +1,5 @@
 var load = (function() {
-    // Function which returns a function: https://davidwalsh.name/javascript-functions
+    // https://davidwalsh.name/javascript-loader
     function _load(tag) {
         return function(url) {
             // This promise will be used by Promise.all to determine success or failure
