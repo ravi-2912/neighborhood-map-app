@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as MapStyle from './GMaps_styles';
+import Load from './util.js';
 
 class GMap extends Component {
     static propTypes = {
@@ -110,11 +111,16 @@ class GMap extends Component {
 
     componentDidMount() {
         window.initMap = this.initMap;
-
-        this.loadJS(
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
-        );
+        /*try {
+            this.loadJS(
+                'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
+            );
+        } catch (err) {}
         //this.togglePOI(prevProps);
+        */
+        Load.js(
+            'https://maps.groogleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
+        ).catch(() => console.log('errorrrr'));
     }
 
     render() {
