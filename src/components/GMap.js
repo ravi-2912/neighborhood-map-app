@@ -119,7 +119,7 @@ class GMap extends Component {
         //this.togglePOI(prevProps);
         */
         Load.js(
-            'https://maps.groogleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhy3sx_05Qt8oMqdaN8nh4OTgnQ2IC6cQ&callback=initMap'
         ).catch(() => {
             document.getElementById('map').innerHTML = `
             <h1 style="margin:auto; color:red;">Failed to load Google Maps API.</h1>`;
