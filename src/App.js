@@ -55,13 +55,25 @@ class App extends Component {
 
     onTogglePOI = toggle => this.setState({ poi: toggle });
 
-    onMouseOver = i => window.google.maps.event.trigger(this.state.markers[i], 'mouseover');
+    onMouseOver = i => {
+        try {
+            window.google.maps.event.trigger(this.state.markers[i], 'mouseover');
+        } catch (err) {}
+    };
     //onMouseOver = i => this.state.markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
 
-    onMouseOut = i => window.google.maps.event.trigger(this.state.markers[i], 'mouseout');
+    onMouseOut = i => {
+        try {
+            window.google.maps.event.trigger(this.state.markers[i], 'mouseout');
+        } catch (err) {}
+    };
     //onMouseOut = i => this.state.markers[i].setAnimation(null);
 
-    onClick = i => window.google.maps.event.trigger(this.state.markers[i], 'click');
+    onClick = i => {
+        try {
+            window.google.maps.event.trigger(this.state.markers[i], 'click');
+        } catch (err) {}
+    };
 
     componentDidMount() {
         FSAPI.search('cafe', this.state.loc)
